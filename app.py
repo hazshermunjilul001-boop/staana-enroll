@@ -8,13 +8,21 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-production')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+
+# Improved Supabase + Render connection handling
+database_url = os.environ.get('DATABASE_URL')
+if database_url:
+    # Fix protocol
+    if database_url.startswith('postgres://'):
+        database_url = database_url.replace('postgres://', 'postgresql://', 1)
+    # Ensure SSL
+    if '?' not in database_url:
+        database_url += '?sslmode=require'
+    elif 'sslmode' not in database_url:
+        database_url += '&sslmode=require'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-if app.config.get('SQLALCHEMY_DATABASE_URI'):
-    uri = app.config['SQLALCHEMY_DATABASE_URI']
-    if uri.startswith('postgres://'):
-        uri = uri.replace('postgres://', 'postgresql://', 1)
-    app.config['SQLALCHEMY_DATABASE_URI'] = uri
 
 db = SQLAlchemy(app)
 
