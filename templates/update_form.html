@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Update Details</title></head>
+<body style="font-family:Arial; padding:40px; background:#0a3d0a; color:white;">
+    <h2>Confirm & Update Information</h2>
+    <p>Student: {{ student.first_name }} {{ student.last_name }} (Grade {{ student.grade_level }} - {{ student.section }})</p>
+    
+    <form method="POST">
+        <label>Address:</label><br>
+        <textarea name="address" rows="3" cols="50">{{ student.address or '' }}</textarea><br><br>
+        
+        <label>Contact Number:</label><br>
+        <input type="text" name="contact" value="{{ student.contact or '' }}"><br><br>
+        
+        <label>Parent/Guardian Name:</label><br>
+        <input type="text" name="parent_name" value="{{ student.parent_name or '' }}"><br><br>
+        
+        <label>Parent Contact:</label><br>
+        <input type="text" name="parent_contact" value="{{ student.parent_contact or '' }}"><br><br>
+        
+        <button type="submit" style="padding:15px 30px; background:#ffd700; font-size:18px;">Confirm Enrollment</button>
+    </form>
+</body>
+</html>

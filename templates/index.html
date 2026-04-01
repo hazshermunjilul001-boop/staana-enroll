@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sta. Ana NHS - Self Enrollment</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; background: #0a3d0a; color: white; }
+        input { padding: 15px; font-size: 18px; width: 300px; }
+        button { padding: 15px 30px; font-size: 18px; background: #ffd700; color: black; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Sta. Ana National High School</h1>
+    <h2>Online Self-Enrollment SY 2026-2027</h2>
+    <p>Enter your LRN or Birthday (MM-DD-YYYY)</p>
+    
+    <form method="POST" action="/search">
+        <input type="text" name="identifier" placeholder="e.g. 123456789012 or 04-15-2012" required>
+        <br><br>
+        <button type="submit">Search Student</button>
+    </form>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p style="color: {% if category=='success' %}lime{% elif category=='danger' %}red{% else %}yellow{% endif %};">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

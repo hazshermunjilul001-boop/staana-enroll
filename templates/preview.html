@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Preview</title>
+    <style> body {font-family: Arial; padding: 40px; background: #0a3d0a; color: white;} </style>
+</head>
+<body>
+    <h2>Is this your child?</h2>
+    <p><strong>Name:</strong> {{ preview.first_name }} {{ preview.last_name }}</p>
+    <p><strong>Grade:</strong> {{ preview.grade_level }} - Section {{ preview.section }}</p>
+    <p><strong>LRN:</strong> {{ preview.lrn }}</p>
+    
+    <form action="{{ url_for('confirm_enrollment', student_id=student_id) }}" method="GET">
+        <button type="submit" style="padding:15px 30px; font-size:18px; background:#ffd700;">Yes, This is Correct → Proceed</button>
+    </form>
+    
+    <a href="/">Search Again</a>
+</body>
+</html>
