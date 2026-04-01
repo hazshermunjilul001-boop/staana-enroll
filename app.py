@@ -10,6 +10,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-production')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+if app.config['SQLALCHEMY_DATABASE_URI'] and app.config['SQLALCHEMY_DATABASE_URI'].startswith('postgres://'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace('postgres://', 'postgresql://', 1)
 
 db = SQLAlchemy(app)
 
@@ -94,4 +96,5 @@ def confirm_enrollment(student_id):
     return render_template('update_form.html', student=student)
 
 if __name__ == "__main__":
+    # db.create_all()  # Temporarily commented for deployment
     app.run(debug=True)
